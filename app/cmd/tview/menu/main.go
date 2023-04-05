@@ -30,9 +30,9 @@ func Main(app *tview.Application) tview.Primitive {
 			return nil
 		}
 	}
-	source.SetBorder(true).SetTitle("Sources")
+	source.SetBorder(true).SetTitle("Sources [CTRL - I]")
 	operations := tview.NewList()
-	operations.SetBorder(true).SetTitle("Operations")
+	operations.SetBorder(true).SetTitle("Operations [CTRL - O]")
 	operations.AddItem("New Transaction", "Inserts a new transaction", 'n', func() {
 		tv.SetText("TODO OPERATION NOT READY")
 	})
