@@ -1,0 +1,3 @@
+app/app
+app/tools/test_files/*
+app/storage/data.json
