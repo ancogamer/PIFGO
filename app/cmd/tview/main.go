@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	app := tview.NewApplication()
-	rootMenu := menu.Main(app)
-	if err := app.SetRoot(rootMenu, true).SetFocus(rootMenu).Run(); err != nil {
+
+	tui := menu.TUI{App: tview.NewApplication()}
+	if err := tui.App.SetRoot(tui.Main(), true).Run(); err != nil {
 		panic(err)
 	}
 }
