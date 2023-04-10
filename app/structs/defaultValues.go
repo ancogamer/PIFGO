@@ -3,6 +3,8 @@ package structs
 import (
 	"strconv"
 	"time"
+
+	"github.com/ancogamer/app/structs/operation"
 )
 
 const (
@@ -16,3 +18,7 @@ var (
 	StartMonth string    = StartData.Month().String()
 	StartDay   string    = strconv.Itoa(StartData.Day())
 )
+
+type Data struct {
+	TimeWindow []operation.Year
+}

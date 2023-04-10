@@ -11,4 +11,5 @@ func main() {
 	if err := tui.App.SetRoot(tui.Main(), true).Run(); err != nil {
 		panic(err)
 	}
+
 }
