@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	DefaultQTDYear int = 1
-	QTDMonthYear   int = 12
+	DefaultQTDYear     int    = 1
+	QTDMonthYear       int    = 12
+	TimeFormatYYYYMMDD string = "2006/01/02"
 )
 
 var (
