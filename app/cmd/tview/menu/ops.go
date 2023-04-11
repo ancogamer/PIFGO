@@ -1,7 +1,7 @@
 package menu
 
 import (
-	"time"
+	"github.com/ancogamer/app/funcs"
 
 	"github.com/ancogamer/app/structs"
 
@@ -22,7 +22,7 @@ func (t *TUI) NewTransaction() {
 	t.ops.AddItem("Income", "", 'i', func() {
 
 		form := tview.NewForm().
-			AddInputField("DATA ON YYYY/MM/DD", time.Now().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil).
+			AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil).
 			AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil).
 			AddInputField("VALUE", "", 20, nil, nil).
 			AddCheckbox("PAID", false, nil).

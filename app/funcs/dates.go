@@ -10,10 +10,12 @@ import (
 
 var getCurrentData = CurrentData()
 
+// CurrentData gives the CurrentTime
 func CurrentData() time.Time {
 	return time.Now()
 }
 
+// DaysInMonth Calcs the days in a month
 // from https://stackoverflow.com/questions/73880828/list-the-number-of-days-in-current-date-month
 func DaysInMonth(t time.Time) []int {
 	t = time.Date(t.Year(), t.Month(), 32, 0, 0, 0, 0, time.UTC)
@@ -25,6 +27,7 @@ func DaysInMonth(t time.Time) []int {
 	return days
 }
 
+// SetupFileCurrentTime Generates
 func SetupFileCurrentTime() (timeWindow []operation.Year) {
 
 	timeWindow = make([]operation.Year, structs.DefaultQTDYear)
