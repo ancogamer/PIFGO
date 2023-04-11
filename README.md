@@ -18,3 +18,7 @@ Lista de desejos
 |Simulator compra a vista e parcelado|||
 |Simulator de rendimento simples|||
 |Simulator de rendimento com aporte mensal|||
+
+
+# some rules
+operations like income and outcome takes as basic units Days, for some operation that happen between months, just lauch that on some day of that month
