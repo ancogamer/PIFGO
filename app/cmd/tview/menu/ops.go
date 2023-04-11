@@ -20,12 +20,11 @@ func (t *TUI) StandardOps() {
 func (t *TUI) NewTransaction() {
 	t.ops.Clear()
 	t.ops.AddItem("Income", "", 'i', func() {
-
 		form := tview.NewForm().
-			AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil).
-			AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil).
-			AddInputField("VALUE", "", 20, nil, nil).
-			AddCheckbox("PAID", false, nil).
+			AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil). //TODO get current item from the in memory slice
+			AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil).                                 // TODO get structs from income.Income
+			AddInputField("VALUE", "", 20, nil, nil).                                                                  // call function of value
+			AddCheckbox("PAID", false, nil).                                                                           // is this paid ? (since operations can be on credit to be paid later)
 			AddButton("Save", nil).
 			AddButton("Cancel", func() {
 				t.NewTransaction()
@@ -34,9 +33,9 @@ func (t *TUI) NewTransaction() {
 
 		t.viewerScreen = form
 		t.App.SetFocus(t.viewerScreen)
-
 		t.ReloadNavigate()
 	})
+	// TODO
 	t.ops.AddItem("Outcome", "", 'o', func() {
 		app := tview.NewApplication()
 		form := tview.NewForm().
