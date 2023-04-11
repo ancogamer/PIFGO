@@ -1,11 +1,12 @@
 package funcs
 
 import (
+	"github.com/ancogamer/app/structs/income"
 	"github.com/ancogamer/app/structs/operation"
 )
 
 // AddOrUpdateIncome adds or update in the income, IT WILL TAKE THE DAY AS THE BASE for transactions, in other words, transactions only happen in days.
-func AddOrUpdateIncome(year *operation.Year, month *operation.Month, day *operation.Day) {
+func AddOrUpdateIncome(year *operation.Year, month *operation.Month, day *operation.Day, inp income.Income) {
 	// this should call updateIncomeOnMonth to update the balance on the month
 }
 

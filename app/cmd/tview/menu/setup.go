@@ -16,9 +16,7 @@ type Setup struct {
 
 func (s *Setup) FileSave() {
 	s.source.Clear()
-	form := tview.NewForm()
-
-	form.AddInputField("Initial Value", "", 20, nil, nil)
+	form := tview.NewForm().AddInputField("Initial Value", "", 20, nil, nil)
 	form.AddButton("Save", func() {
 		s.TUI.viewer.Clear()
 		s.TUI.viewerScreen = s.TUI.viewer
@@ -49,9 +47,8 @@ func (s *Setup) FileSave() {
 	form.SetBorder(true).SetTitle("Enter data").SetTitleAlign(tview.AlignLeft)
 
 	s.viewerScreen = form
-	s.ReloadNavigate()
 	s.App.SetFocus(s.viewerScreen)
-
+	s.ReloadNavigate()
 }
 
 func (s *Setup) setupDataLocal() {

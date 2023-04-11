@@ -1,7 +1,13 @@
 package menu
 
 import (
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/ancogamer/app/funcs"
+	"github.com/ancogamer/app/structs/income"
+	"github.com/ancogamer/app/structs/tax"
 
 	"github.com/ancogamer/app/structs"
 
@@ -20,15 +26,63 @@ func (t *TUI) StandardOps() {
 func (t *TUI) NewTransaction() {
 	t.ops.Clear()
 	t.ops.AddItem("Income", "", 'i', func() {
-		form := tview.NewForm().
-			AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil). //TODO get current item from the in memory slice
-			AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil).                                 // TODO get structs from income.Income
-			AddInputField("VALUE", "", 20, nil, nil).                                                                  // call function of value
-			AddCheckbox("PAID", false, nil).                                                                           // is this paid ? (since operations can be on credit to be paid later)
-			AddButton("Save", nil).
-			AddButton("Cancel", func() {
-				t.NewTransaction()
-			})
+		form := tview.NewForm()
+		form.AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil) //TODO get current item from the in memory slice
+		form.AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil)                                 // TODO get structs from income.Income
+		form.AddInputField("VALUE", "", 20, nil, nil)                                                                  // call function of value
+		form.AddCheckbox("PAID", false, nil)                                                                           // is this paid ? (since operations can be on credit to be paid later)
+		form.AddButton("Save", func() {
+			t.viewerScreen = t.viewer
+			t.ReloadNavigate()
+			data := form.GetFormItem(0).(*tview.InputField)
+			tData, err := time.Parse(structs.TimeFormatYYYYMMDD, data.GetText())
+			if err != nil {
+				t.viewer.SetText(strings.Join([]string{"ERROR WHILE TRANSFORMING DATA :", err.Error()}, ""))
+				return
+			}
+
+			p := funcs.GetPositionOperationYearItem(&t.Data.TimeWindow, strconv.Itoa(tData.Year()), int(tData.Month()), int(tData.Day()))
+			if p == nil {
+				t.viewer.SetText(strings.Join([]string{"ERROR POSITION OF DATA IN RECORDS NOT FOUND\nCHECK FILES WITH PARAMS :",
+					strconv.Itoa(tData.Year()),
+					strconv.Itoa(int(tData.Month())),
+					strconv.Itoa(int(tData.Day())),
+				}, ""))
+				return
+			}
+
+			inp := income.Income{
+				InvestmentsFix: &income.FixReturn{
+					Name: "TESTE SAVE",
+					TaxYear: tax.Tax{
+						Porcentage: 0.0,
+					},
+					TaxMonth: tax.Tax{
+						Porcentage: 0.0,
+					},
+				},
+				Value: 0.0,
+			}
+			funcs.AddOrUpdateIncome(
+				&t.Data.TimeWindow[p[0]],
+				&t.Data.TimeWindow[p[0]].Months[p[1]],
+				&t.Data.TimeWindow[p[0]].Months[p[1]].Days[p[2]],
+				inp,
+			)
+			//var err error
+			//s.TUI.Data.BeginValue, err = strconv.ParseFloat(formIt.GetText(), 64)
+			//if err != nil {
+			//	s.TUI.viewerScreen = s.TUI.viewer
+			//	s.TUI.viewer.SetText(strings.Join([]string{"ERROR WHILE TRANSFORMING PROGRAM STRUCT :", err.Error()}, ""))
+			//	return
+			//}
+		})
+		form.AddButton("Cancel", func() {
+			t.viewerScreen = t.viewer
+			t.App.SetFocus(t.viewerScreen)
+			t.ReloadNavigate()
+			t.NewTransaction()
+		})
 		form.SetBorder(true).SetTitle("Enter data").SetTitleAlign(tview.AlignLeft)
 
 		t.viewerScreen = form
