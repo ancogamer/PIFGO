@@ -21,5 +21,6 @@ var (
 )
 
 type Data struct {
+	BeginValue float64 `json:"begin_value"`
 	TimeWindow []operation.Year
 }

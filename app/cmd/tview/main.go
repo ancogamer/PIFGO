@@ -8,7 +8,7 @@ import (
 func main() {
 
 	tui := menu.TUI{App: tview.NewApplication()}
-	if err := tui.App.SetRoot(tui.Main(), true).Run(); err != nil {
+	if err := tui.App.SetRoot(tui.Main(), true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 

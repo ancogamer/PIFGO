@@ -56,7 +56,7 @@ func (t *TUI) Main() tview.Primitive {
 	_, err := funcs.ReadLocalFile("../../storage/data.json")
 	if err != nil {
 		if err.Error() == `open ../../storage/data.json: no such file or directory` {
-			t.viewer.SetText("NO DATA FILE FOUND\nOPERATIONS DISABLED, PLEASE START A NEW ONE")
+			//t.viewer.SetText("NO DATA FILE FOUND\nOPERATIONS DISABLED, PLEASE START A NEW ONE")
 			s := Setup{App: t.App, TUI: t}
 			s.FileSave()
 		} else {
