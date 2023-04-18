@@ -1,6 +1,6 @@
 # PIFGO
 Planejador Individual financeiro em GO
-
+#this project will have a litle pause, since i got sick and have other stuff to do ;-
 Lista de desejos
 
 |ITEM |DESC|PROGRESS | 
