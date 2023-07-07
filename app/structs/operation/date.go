@@ -1,10 +1,5 @@
 package operation
 
-import (
-	"github.com/ancogamer/app/structs/income"
-	"github.com/ancogamer/app/structs/outcome"
-)
-
 type Year struct {
 	Year     string  `json:"year" example:"2023"` // Year in context. example 2023
 	Months   []Month `json:"months"`
@@ -22,6 +17,6 @@ type Month struct {
 type Day struct {
 	Name       string `json:"name" example:"monday"`     // representation in language of that day.
 	NumInMonth int8   `json:"num_in_month" example:"01"` // number of the day in that year
-	Income     []income.Income
-	OutCome    []outcome.OutCome
+	Income     []Income
+	OutCome    []OutCome
 }

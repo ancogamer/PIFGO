@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/ancogamer/app/funcs"
-	"github.com/ancogamer/app/structs/income"
 	"github.com/ancogamer/app/structs/tax"
 
 	"github.com/ancogamer/app/structs"
@@ -28,7 +27,7 @@ func (t *TUI) NewTransaction() {
 	t.ops.AddItem("Income", "", 'i', func() {
 		form := tview.NewForm()
 		form.AddInputField("DATA ON YYYY/MM/DD", funcs.CurrentData().Format(structs.TimeFormatYYYYMMDD), 20, nil, nil) //TODO get current item from the in memory slice
-		form.AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil)                                 // TODO get structs from income.Income
+		form.AddDropDown("Type", []string{"Investment FIX RETURN.", "SALARY"}, 0, nil)                                 // TODO get structs from operation.Income
 		form.AddInputField("VALUE", "", 20, nil, nil)                                                                  // call function of value
 		form.AddCheckbox("PAID", false, nil)                                                                           // is this paid ? (since operations can be on credit to be paid later)
 		form.AddButton("Save", func() {
@@ -51,8 +50,8 @@ func (t *TUI) NewTransaction() {
 				return
 			}
 
-			inp := income.Income{
-				InvestmentsFix: &income.FixReturn{
+			inp := operation.Income{
+				InvestmentsFix: &operation.FixReturn{
 					Name: "TESTE SAVE",
 					TaxYear: tax.Tax{
 						Porcentage: 0.0,
